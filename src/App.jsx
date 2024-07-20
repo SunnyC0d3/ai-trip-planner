@@ -1,16 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { Button } from './components/ui/button'
+import Hero from './components/ui/Hero'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const heroTitle = (<><span className="text-[#f56551]">Discover your next adventure with AI:</span> personalised itineraries at your fingertips</>);
+  const heroShortDescription = 'Your personal trip planner and travel curator, creating custom itineraries tailored to your interest and budget.';
 
   return (
     <>
-      <h2>Testing</h2>
-      <Button>Testing</Button>
+      <Hero title={heroTitle} shortDescription={heroShortDescription} />
     </>
   )
 }
