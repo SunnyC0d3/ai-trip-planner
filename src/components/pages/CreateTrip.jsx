@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 import { Input } from '../ui/input';
 import { SelectBudgetOptions, SelectTravelsList } from '@/constants/options';
@@ -10,10 +10,18 @@ function CreateTrip() {
 
   function handleInputChange(name, value) {
     setFormData({
-      ...formField,
+      ...formData,
       [name]: value
     });
   }
+
+  function onGenerateTrip() {
+    console.log(formData);
+  }
+
+  useEffect(() => {
+
+  }, [formData]);
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
@@ -26,13 +34,13 @@ function CreateTrip() {
             apiKey={import.meta.env.VITE_GOOGLE_PLACES_API_KEY}
             selectProps={{
               place,
-              onChange: (value) => { setPlace(value); handleInputChange('location', v) }
+              onChange: (value) => { setPlace(value); handleInputChange('location', value) }
             }}
           />
         </div>
         <div>
           <h2 className="text-xl my-3 font-medium">How many days are you planning your trip?</h2>
-          <Input placeholder={'Ex. 3'} type="number" />
+          <Input placeholder={'Ex. 3'} type="number" onChange={(event) => { handleInputChange('numOfDays', event.target.value) }} />
         </div>
         <div>
           <h2 className="text-xl my-3 font-medium">What is your budget?</h2>
@@ -40,7 +48,7 @@ function CreateTrip() {
           <div className="grid grid-cols-3 gap-5 mt-5">
             {
               SelectBudgetOptions.map((item, index) => (
-                <div key={item.id} className="p-4 border cursor-pointer rounded-lg hover:shadow-lg">
+                <div key={item.id} className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${ formData?.budget === item.title ? 'shadow-lg' : '' }`} onClick={() => { handleInputChange('budget', item.title) }}>
                   <span className="text-4xl">{item.icon}</span>
                   <h2 className="font-bold text-lg">{item.title}</h2>
                   <p className="text-sm text-gray-500">{item.desc}</p>
@@ -54,7 +62,7 @@ function CreateTrip() {
           <div className="grid grid-cols-3 gap-5 mt-5">
             {
               SelectTravelsList.map((item, index) => (
-                <div key={item.id} className="p-4 border cursor-pointer rounded-lg hover:shadow-lg">
+                <div key={item.id} className={`p-4 border cursor-pointer rounded-lg hover:shadow-lg ${ formData?.travellers === item.people ? 'shadow-lg' : '' }`} onClick={() => { handleInputChange('travellers', item.people) }}>
                   <span className="text-4xl">{item.icon}</span>
                   <h2 className="font-bold text-lg">{item.title}</h2>
                   <p className="text-sm text-gray-500">{item.desc}</p>
@@ -64,7 +72,7 @@ function CreateTrip() {
           </div>
         </div>
         <div className="my-10 justify-end flex">
-          <Button>Generate Trip</Button>
+          <Button onClick={onGenerateTrip}>Generate Trip</Button>
         </div>
       </div>
     </div>
