@@ -15,6 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/Dialog";
 import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 function CreateTrip() {
   const [place, setPlace] = useState('');
@@ -66,13 +67,14 @@ function CreateTrip() {
         Authorization: `Bearer ${tokenInfo?.access_token}`,
         Accept: 'application/json'
       }
-    })
-      .then((response) => {
-        console.log(response);
-        localStorage.setItem('user', JSON.stringify(response.data));
-        setOpenDialog(false);
-        onGenerateTrip();
-      });
+    }).then((response) => {
+      console.log(response);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      setOpenDialog(false);
+      onGenerateTrip();
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   return (
