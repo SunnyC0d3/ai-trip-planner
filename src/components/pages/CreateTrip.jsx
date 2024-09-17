@@ -15,6 +15,8 @@ import {
   DialogTitle,
 } from "@/components/ui/Dialog";
 import { useGoogleLogin } from '@react-oauth/google';
+import { setDoc, doc } from 'firebase/firestore';
+import { db } from '@/service/FirebaseConfig';
 import axios from 'axios';
 
 function CreateTrip() {
@@ -26,6 +28,18 @@ function CreateTrip() {
     setFormData({
       ...formData,
       [name]: value
+    });
+  }
+
+  async function saveAITrip(tripData) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const docId = Date.now().toString();
+
+    await setDoc(doc(db, 'AI Trip Planner', docId), {
+      id: docId,
+      userSelection: formData,
+      tripData: tripData,
+      userEmail: user?.email
     });
   }
 
@@ -50,6 +64,8 @@ function CreateTrip() {
       .replace('{totalDays}', formData?.numOfDays)
 
     const result = await chatSession.sendMessage(FINAL_PROMPT);
+
+    saveAITrip(result?.response?.text());
   }
 
   useEffect(() => {
