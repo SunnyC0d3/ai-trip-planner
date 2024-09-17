@@ -6,6 +6,7 @@ import { AI_PROMPT, SelectBudgetOptions, SelectTravelsList } from '@/constants/o
 import { Button } from '../ui/Button';
 import { toast } from 'sonner';
 import { FcGoogle } from "react-icons/fc";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { chatSession } from '@/service/AIModal';
 import {
   Dialog,
@@ -23,6 +24,7 @@ function CreateTrip() {
   const [place, setPlace] = useState('');
   const [formData, setFormData] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function handleInputChange(name, value) {
     setFormData({
@@ -32,15 +34,19 @@ function CreateTrip() {
   }
 
   async function saveAITrip(tripData) {
+    setLoading(true);
+
     const user = JSON.parse(localStorage.getItem('user'));
     const docId = Date.now().toString();
 
     await setDoc(doc(db, 'AI Trip Planner', docId), {
       id: docId,
       userSelection: formData,
-      tripData: tripData,
+      tripData: JSON.parse(tripData),
       userEmail: user?.email
     });
+
+    setLoading(false);
   }
 
   async function onGenerateTrip() {
@@ -56,6 +62,8 @@ function CreateTrip() {
       return;
     }
 
+    setLoading(true);
+
     const FINAL_PROMPT = AI_PROMPT
       .replace('{location}', formData?.location.label)
       .replace('{totalDays}', formData?.numOfDays)
@@ -64,6 +72,8 @@ function CreateTrip() {
       .replace('{totalDays}', formData?.numOfDays)
 
     const result = await chatSession.sendMessage(FINAL_PROMPT);
+
+    setLoading(false);
 
     saveAITrip(result?.response?.text());
   }
@@ -141,7 +151,11 @@ function CreateTrip() {
           </div>
         </div>
         <div className="my-10 justify-end flex">
-          <Button onClick={onGenerateTrip}>Generate Trip</Button>
+          <Button disabled={loading} onClick={onGenerateTrip}>
+            {loading ?
+              <AiOutlineLoading3Quarters className="w-7 h-7 animate-spin" /> : <>Generate Trip</>
+            }
+          </Button>
         </div>
         <Dialog open={openDialog}>
           <DialogContent>
@@ -150,7 +164,9 @@ function CreateTrip() {
               <DialogTitle>Sign in with Google</DialogTitle>
               <DialogDescription>
                 Sign in to the App with Google authentication securely
-                <Button className="w-full mt-5 flex gap-4 items-center" onClick={login}><FcGoogle className="h-7 w-7" /> Sign in with Google</Button>
+                <Button className="w-full mt-5 flex gap-4 items-center" onClick={login}>
+                  <FcGoogle className="h-7 w-7" /> Sign in with Google
+                </Button>
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
