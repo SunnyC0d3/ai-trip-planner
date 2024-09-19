@@ -1,8 +1,17 @@
-# React + Vite
+# AI Trip Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A custom built app that uses Google's Gemini AI and Place Finder to help create suggestions for users looking for a budget friendly trip. 
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Simply download the the code and run it using:
+
+```bash
+npm run dev
+```
+
+Make sure the env keys are correctly configured. Below are the links that you would need to visit and sign up to in order for the app to work.
+
+https://console.cloud.google.com/
+https://aistudio.google.com/ 
+https://console.firebase.google.com/
