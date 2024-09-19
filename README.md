@@ -22,4 +22,4 @@ https://console.firebase.google.com/ <br/>
 
 ## Issues
 
-Current issue is trying to find a better solution as to how to hide the API Keys so that it is not visible to the browser
+Current issue is that the API Keys are currently exposed to the browser but this is only for testing purposes, for future improvements a backend system or a serverless system can be considered in order for better protection against exposure to sensitive information.
