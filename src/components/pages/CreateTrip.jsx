@@ -78,7 +78,7 @@ function CreateTrip() {
     const result = await chatSession.sendMessage(FINAL_PROMPT);
 
     setLoading(false);
-
+    
     saveAITrip(result?.response?.text());
   }
 
