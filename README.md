@@ -19,3 +19,7 @@ Make sure the env keys are correctly configured. Below are the links that you wo
 https://console.cloud.google.com/ <br/>
 https://aistudio.google.com/ <br/>
 https://console.firebase.google.com/ <br/>
+
+## Issues
+
+Current issue is trying to find a better solution as to how to hide the API Keys so that it is not visible to the browser
