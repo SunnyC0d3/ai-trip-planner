@@ -2,6 +2,10 @@
 
 A custom built app that uses Google's Gemini AI and Place Finder to help create suggestions for users looking for a budget friendly trip. 
 
+![Alt text](/src/assets/readme-img-1.png?raw=true "Screenshot 1")
+![Alt text](/src/assets/readme-img-2.png?raw=true "Screenshot 2")
+![Alt text](/src/assets/readme-img-3.png?raw=true "Screenshot 3")
+
 ## Installation
 
 Simply download the the code and run it using:
