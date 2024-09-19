@@ -5,11 +5,14 @@ import { Link, useParams } from 'react-router-dom';
 import placeholderImg from '@/assets/placeholderImg.jpg'
 import { IoIosSend } from "react-icons/io";
 import { Button } from '@/components/ui/Button';
-import { FaMapLocationDot } from "react-icons/fa6";
+import { getPlaceDetails } from '@/service/GlobalAPI';
+
+const PHOTO_REF_URL = `https://places.googleapis.com/v1/{NAME}/media?maxHeightPx=1000&maxWidthPx=1000&key=${import.meta.env.VITE_GOOGLE_PLACES_API_KEY}`;
 
 function ViewTrip() {
     const { tripId } = useParams();
     const [trip, setTrip] = useState([]);
+    const [photoUrl, setPhotoUrl] = useState();
 
     async function getTripData() {
         const docRef = doc(db, 'AI Trip Planner', tripId);
@@ -26,12 +29,24 @@ function ViewTrip() {
         tripId && getTripData();
     }, [tripId]);
 
-    console.log(trip);
+    useEffect(() => {
+        trip && getPlacePhoto();
+    }, [trip]);
+
+    const getPlacePhoto = async() => {
+        const data = {
+            textQuery: trip?.userSelection?.location?.label
+        }
+
+        const result = await getPlaceDetails(data).then((response) => {
+            setPhotoUrl(PHOTO_REF_URL.replace('{NAME}', response.data.places[0].photos[3].name));
+        });
+    }
 
     return (
         <>
             <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
-                <img src={placeholderImg} className="h-[340px] w-full object-cover rounded" alt="placeholder image" />
+                <img src={photoUrl} className="h-[340px] w-full object-cover rounded" alt="placeholder image" />
                 <h1 className="font-bold text-2xl my-5">{trip?.userSelection?.location?.label}</h1>
                 <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-2">
