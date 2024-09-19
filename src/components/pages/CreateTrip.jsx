@@ -50,6 +50,7 @@ function CreateTrip() {
     });
 
     setLoading(false);
+    navigate(`/view-trip/${docId}`);
   }
 
   async function onGenerateTrip() {
@@ -79,8 +80,6 @@ function CreateTrip() {
     setLoading(false);
 
     saveAITrip(result?.response?.text());
-
-    navigate(`/view-trip/${docId}`);
   }
 
   useEffect(() => {
