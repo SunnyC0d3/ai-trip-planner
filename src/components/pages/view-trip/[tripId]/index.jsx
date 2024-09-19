@@ -30,7 +30,7 @@ function ViewTrip() {
 
     return (
         <>
-            <div className="p-10 md:px-20 lg:px-44 xl:px-56">
+            <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
                 <img src={placeholderImg} className="h-[340px] w-full object-cover rounded" alt="placeholder image" />
                 <h1 className="font-bold text-2xl my-5">{trip?.userSelection?.location?.label}</h1>
                 <div className="flex justify-between items-center">
