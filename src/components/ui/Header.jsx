@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/Dialog";
 import { googleLogout } from '@react-oauth/google';
 import useLogin from '@/hooks/useLogin';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -29,14 +30,14 @@ function Header() {
           user
             ?
             <div className="flex items-center gap-3">
-              <a href="/my-trips"><Button variant="outline" className="rounded-full">My Trips</Button></a>
+              <Link to="/my-trips" className="rounded-full border outline-border p-3">My Trips</Link>
               <Popover>
                 <PopoverTrigger><img src={user?.picture} className="w-[50px] h-[50px] rounded-full" /></PopoverTrigger>
-                <PopoverContent><Button onClick={() => {
+                <PopoverContent><p className="cursor-pointer" onClick={() => {
                   googleLogout();
                   localStorage.clear();
                   window.location.reload();
-                }}>Logout</Button></PopoverContent>
+                }}>Logout</p></PopoverContent>
               </Popover>
 
             </div>
