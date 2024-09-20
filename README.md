@@ -5,6 +5,7 @@ A custom built app that uses Google's Gemini AI and Place Finder to help create 
 ![Alt text](/src/assets/readme-img-1.png?raw=true "Screenshot 1")
 ![Alt text](/src/assets/readme-img-2.png?raw=true "Screenshot 2")
 ![Alt text](/src/assets/readme-img-3.png?raw=true "Screenshot 3")
+![Alt text](/src/assets/readme-img-4.png?raw=true "Screenshot 4")
 
 ## Installation
 
