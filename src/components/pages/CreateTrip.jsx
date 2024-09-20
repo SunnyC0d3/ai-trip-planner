@@ -15,17 +15,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/Dialog";
-import { useGoogleLogin } from '@react-oauth/google';
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from '@/service/FirebaseConfig';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useLogin from '@/hooks/useLogin';
 
 function CreateTrip() {
   const [place, setPlace] = useState('');
   const [formData, setFormData] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { openDialog, setOpenDialog, login } = useLogin();
 
   const navigate = useNavigate();
 
@@ -83,28 +83,7 @@ function CreateTrip() {
   }
 
   useEffect(() => {
-
   }, [formData]);
-
-  const login = useGoogleLogin({
-    onSuccess: (codeResp) => getUserProfile(codeResp),
-    onError: (error) => console.log(error)
-  });
-
-  const getUserProfile = (tokenInfo) => {
-    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token${tokenInfo?.access_token}`, {
-      headers: {
-        Authorization: `Bearer ${tokenInfo?.access_token}`,
-        Accept: 'application/json'
-      }
-    }).then((response) => {
-      localStorage.setItem('user', JSON.stringify(response.data));
-      setOpenDialog(false);
-      onGenerateTrip();
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10">
