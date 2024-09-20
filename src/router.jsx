@@ -3,7 +3,7 @@ import App from './App.jsx'
 import { createBrowserRouter } from 'react-router-dom'
 import CreateTrip from './components/pages/CreateTrip.jsx'
 import ViewTrip from './components/pages/view-trip/[tripId]/index.jsx'
-import MyTrips from './components/pages/MyTrips.jsx'
+import MyTrips from './components/pages/my-trips/index.jsx'
 import Home from './components/pages/Home.jsx'
 
 const router = createBrowserRouter([

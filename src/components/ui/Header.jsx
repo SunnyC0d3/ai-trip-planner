@@ -30,6 +30,7 @@ function Header() {
           user
             ?
             <div className="flex items-center gap-3">
+              <Link to="/create-trip" className="rounded-full border outline-border p-3">+ Create Trip</Link>
               <Link to="/my-trips" className="rounded-full border outline-border p-3">My Trips</Link>
               <Popover>
                 <PopoverTrigger><img src={user?.picture} className="w-[50px] h-[50px] rounded-full" /></PopoverTrigger>

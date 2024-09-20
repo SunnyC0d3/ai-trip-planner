@@ -2,6 +2,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '@/service/FirebaseConfig';
+import UserTripCardItem from './UserTripCardItem';
 
 function MyTrips() {
     const navigate = useNavigate();
@@ -32,13 +33,7 @@ function MyTrips() {
             <h1 className="font-bold text-3xl">My Trips</h1>
             <div className="grid grid-cols-2 md:grid-cols-3 mt-5">
                 {userTrips.map((trip, index) => (
-                    <div key={index}>
-                        <img src="" alt="" className="object-cover rounded" />
-                        <div>
-                            <h2 className="font-bold text-lg">{trip?.userSelection?.location?.label}</h2>
-                            <p className="text-sm text-gray-500">{trip?.userSelection?.numOfDays} day trip with a {trip?.userSelection?.budget} budget</p>
-                        </div>
-                    </div>
+                    <UserTripCardItem key={index} trip={trip} />
                 ))}
             </div>
         </div>
