@@ -28,7 +28,7 @@ function Header() {
     onError: (error) => console.log(error)
   });
 
-    const getUserProfile = (tokenInfo) => {
+  const getUserProfile = (tokenInfo) => {
     axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token${tokenInfo?.access_token}`, {
       headers: {
         Authorization: `Bearer ${tokenInfo?.access_token}`,
@@ -42,10 +42,6 @@ function Header() {
       console.log(error);
     });
   }
-
-  useEffect(() => {
-    console.log(user);
-  }, []);
 
   return (
     <div className="p-3 shadow-sm flex justify-between items-center px-5">
